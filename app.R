@@ -12,11 +12,15 @@ require(conflicted)
 conflict_prefer("addLegend", "leaflet")
 conflict_prefer("filter", "dplyr")
 
-# get data
-source <- "https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv"
+url <- "https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv"
+file <- "data/global-mobility-report.csv"
 
-dat <- source %>%
-    read_csv() %>%
+if(!file.exists(file) | as.Date(file.info(file)$ctime) != Sys.Date()) {
+    
+    try(download.file(url, destfile = file), silent = T)
+}
+
+dat <- read_csv(file) %>%
     filter(is.na(sub_region_1)) %>%
     rename(iso_a2 = country_region_code, country = country_region) %>%
     select(-sub_region_1, -sub_region_2) %>%
