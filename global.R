@@ -23,7 +23,7 @@ if(!file.exists(file) | as.Date(file.info(file)$ctime) != Sys.Date()) {
 dat <- read_csv(file) %>%
 	filter(is.na(sub_region_1)) %>%
 	rename(iso_a2 = country_region_code, country = country_region) %>%
-	select(-sub_region_1, -sub_region_2) %>%
+	select(-sub_region_1, -sub_region_2, -metro_area) %>%
 	gather("category", "mobility", -iso_a2, -country, -iso_3166_2_code, -census_fips_code, -date, ) %>%
 	mutate(category = str_to_title(
 		str_replace_all(str_replace(category, "_percent_change_from_baseline", ""), "_", " ")
