@@ -15,6 +15,7 @@ conflict_prefer("filter", "dplyr")
 url <- "https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv"
 file <- "data/global-mobility-report.csv"
 
+if(!dir.exists("data")) { dir.create("data") }
 if(!file.exists(file) | as.Date(file.info(file)$ctime) != Sys.Date()) {
 	
 	try(download.file(url, destfile = file), silent = T)
