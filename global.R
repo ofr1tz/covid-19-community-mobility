@@ -13,7 +13,7 @@ conflict_prefer("addLegend", "leaflet")
 conflict_prefer("filter", "dplyr")
 
 url <- "https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv"
-file <- "data/global-mobility-report.csv"
+file <- "data/global-mobility-report.rds"
 
 if(!dir.exists("data")) { dir.create("data") }
 if(!file.exists(file) | as.Date(file.info(file)$ctime) != Sys.Date()) {
