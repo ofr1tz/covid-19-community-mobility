@@ -3,4 +3,4 @@
 .RData
 .Rhistory
 
-data/global-mobility-report.csv
+data/global-mobility-report.rds

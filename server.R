@@ -2,15 +2,24 @@ server <- function(input, output, session) {
 	
 	# filter data and join with polygons
 	selection <- reactive({
-		f <- dat %>% filter(category == input$cat, date == input$dat)
+		f <- dat %>% 
+			filter(category == input$cat, date == input$dat) %>%
+			mutate(bin = cut(
+				mobility, 
+				breaks = c(seq(-100, 80, 20), Inf), 
+				labels = labels, 
+				right = F
+			))
 		sf %>% left_join(f, by = c("iso_a2" = "iso_a2"))
 	})
 	
 	# make palette
 	make_pal <- reactive({
-		max <- max(c(100, selection()$mobility), na.rm = T)
-		bins <- c(max, seq(80, -100, -20))
-		pal <- colorBin(brewer.pal(11, input$pal), bins = bins, na.color = "#FFFFFF00")
+		pal <- colorFactor(
+			brewer.pal(10, input$pal), 
+			domain = selection()$bin,
+			na.color = "#FFFFFF00"
+		)
 	})
 	
 	# prepare map
@@ -28,18 +37,13 @@ server <- function(input, output, session) {
 		leafletProxy("map" , data = selection()) %>% 
 			addPolygons(
 				layerId = ~iso_a2, # each polygon will get its name attribute as layerId, thus, polygons are updated rather than plotted on top of each other
-				label = ~paste0(name, ": ", mobility, "%"),
-				fillColor = ~pal(mobility), 
+				label = ~paste0(name, ": ", case_when(mobility > 0 ~ "+", mobility < 0 ~ "-", TRUE ~ ""), abs(mobility), "%"),
+				fillColor = ~pal(bin), 
 				stroke = F, fillOpacity = .7
 			) 
 	})
 	
 	# show legend
-	labels <- c(
-		">= +80 %", "+60 \U2012 < +80 %", "+40 \U2012 < +60 %", "+20 \U2012 < +40 %", "0 \U2012 < +20 %",
-		 "-20 \U2012 < 0 %", "-40 \U2012 < -20 %", "-20 \U2012 < -40 %", "-60 \U2012 < -40 %", "-80 \U2012 < -60 %", "< -80 %"
-	)
-	
 	observe({
 		proxy <- leafletProxy("map", data = selection())
 		proxy %>% clearControls()
@@ -50,11 +54,10 @@ server <- function(input, output, session) {
 				addLegend(
 					position = "bottomright",
 					pal = pal,
-					values = ~mobility,
-					labels = labels, 
-					# labFormat = labelFormat(prefix = "<", suffix = "%"),
+					labels = labels,
+					values = ~bin,
 					opacity = .7,
-					title = "Change in Mobility"
+					title = "Change in Mobility (%)"
 				)
 		}
 	})

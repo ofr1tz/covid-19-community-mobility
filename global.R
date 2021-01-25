@@ -45,3 +45,16 @@ sf <- ne_countries(scale = 110, returnclass = "sf") %>%
 	select(name, iso_a2)
 
 sf_attribution <- "Made with <a href = 'naturalearthdata.com'>Natural Earth</a>"
+
+labels <- c(
+	"\U2264 -81",
+	"-80 \U2012 -61",
+	"-60 \U2012 -41",
+	"-40 \U2012 -21",
+	"-20 \U2012 -1",
+	"0 \U2012 +19",
+	"+20 \U2012 +39",
+	"+40 \U2012 +59",
+	"+60 \U2012 +79",
+	"\U2265 +80"
+)
