@@ -2,14 +2,7 @@ server <- function(input, output, session) {
 	
 	# filter data and join with polygons
 	selection <- reactive({
-		f <- dat %>% 
-			filter(category == input$cat, date == input$dat) %>%
-			mutate(bin = cut(
-				mobility, 
-				breaks = c(seq(-100, 100, 20), Inf), 
-				labels = labels, 
-				right = F
-			))
+		f <- dat %>% filter(category == input$cat, date == input$dat) 
 		sf %>% left_join(f, by = c("iso_a2" = "iso_a2"))
 	})
 	
@@ -35,7 +28,7 @@ server <- function(input, output, session) {
 	# update map
 	observe({
 		pal <- make_pal()
-		leafletProxy("map" , data = selection()) %>% 
+		leafletProxy("map", data = selection()) %>% 
 			addPolygons(
 				layerId = ~iso_a2, # each polygon will get its name attribute as layerId, thus, polygons are updated rather than plotted on top of each other
 				label = ~paste0(name, ": ", case_when(mobility > 0 ~ "+", mobility < 0 ~ "-", TRUE ~ ""), abs(mobility), "%"),
