@@ -1,3 +1,6 @@
 .Rproj.user
 *.Rproj
+.RData
+.Rhistory
+
 data/global-mobility-report.csv

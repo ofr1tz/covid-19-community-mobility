@@ -18,17 +18,21 @@ file <- "data/global-mobility-report.csv"
 if(!dir.exists("data")) { dir.create("data") }
 if(!file.exists(file) | as.Date(file.info(file)$ctime) != Sys.Date()) {
 	
-	try(download.file(url, destfile = file), silent = T)
+	x <- try(read_csv(url), silent = T)
+	if(class(x) != "try-error") {
+		x %>%
+			filter(is.na(sub_region_1)) %>%
+			rename(iso_a2 = country_region_code, country = country_region) %>%
+			select(-sub_region_1, -sub_region_2, -metro_area) %>%
+			gather("category", "mobility", -iso_a2, -country, -iso_3166_2_code, -census_fips_code, -date) %>%
+			mutate(category = str_to_title(
+				str_replace_all(str_replace(category, "_percent_change_from_baseline", ""), "_", " ")
+			)) %>%
+			saveRDS(file)
+	}
 }
 
-dat <- read_csv(file) %>%
-	filter(is.na(sub_region_1)) %>%
-	rename(iso_a2 = country_region_code, country = country_region) %>%
-	select(-sub_region_1, -sub_region_2, -metro_area) %>%
-	gather("category", "mobility", -iso_a2, -country, -iso_3166_2_code, -census_fips_code, -date, ) %>%
-	mutate(category = str_to_title(
-		str_replace_all(str_replace(category, "_percent_change_from_baseline", ""), "_", " ")
-	))
+dat <- readRDS(file)
 
 data_attribution = paste(
 	"<a href = 'https://www.google.com/covid19/mobility/'>Google LLC</a>",
