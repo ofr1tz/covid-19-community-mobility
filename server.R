@@ -35,6 +35,11 @@ server <- function(input, output, session) {
 	})
 	
 	# show legend
+	labels <- c(
+		">= +80 %", "+60 -- < +80 %", "+40 -- < +60 %", "+20 -- < +40 %", "0 -- < +20 %",
+		 "-20 -- < 0 %", "-40 -- < -20 %", "-20 -- < -40 %", "-60 -- < -40 %", "-80 -- < -60 %", "< -80 %"
+	)
+	
 	observe({
 		proxy <- leafletProxy("map", data = selection())
 		proxy %>% clearControls()
@@ -46,7 +51,8 @@ server <- function(input, output, session) {
 					position = "bottomright",
 					pal = pal,
 					values = ~mobility,
-					labFormat = labelFormat(prefix = "<", suffix = "%"),
+					labels = labels, 
+					# labFormat = labelFormat(prefix = "<", suffix = "%"),
 					opacity = .7,
 					title = "Change in Mobility"
 				)
