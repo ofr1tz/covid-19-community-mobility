@@ -7,6 +7,7 @@ require(leaflet)
 require(RColorBrewer)
 require(shiny)
 require(shinyWidgets)
+require(colorspace)
 
 require(conflicted)
 conflict_prefer("addLegend", "leaflet")
@@ -56,5 +57,6 @@ labels <- c(
 	"+20 \U2012 +39",
 	"+40 \U2012 +59",
 	"+60 \U2012 +79",
-	"\U2265 +80"
+	"+80 \U2012 +99",
+	"\U2265 +100"
 )

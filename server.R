@@ -6,7 +6,7 @@ server <- function(input, output, session) {
 			filter(category == input$cat, date == input$dat) %>%
 			mutate(bin = cut(
 				mobility, 
-				breaks = c(seq(-100, 80, 20), Inf), 
+				breaks = c(seq(-100, 100, 20), Inf), 
 				labels = labels, 
 				right = F
 			))
@@ -15,8 +15,9 @@ server <- function(input, output, session) {
 	
 	# make palette
 	make_pal <- reactive({
-		pal <- colorFactor(
-			brewer.pal(10, input$pal), 
+		brewer_pal <- brewer.pal(10, input$pal)
+		colorFactor(
+			palette = c(brewer_pal, darken(brewer_pal[10], .67)), 
 			domain = selection()$bin,
 			na.color = "#FFFFFF00"
 		)
