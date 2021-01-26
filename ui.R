@@ -15,7 +15,7 @@ ui <- bootstrapPage(
 			sliderInput(
 				"dat", "Select Date", 
 				min = min(dat$date), max = max(dat$date), value = max(dat$date),
-				animate = animationOptions(interval = 1000)
+				animate = animationOptions(interval = 1250)
 			),
 			selectInput(
 				"cat", "Select Category", 
