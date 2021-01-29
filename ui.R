@@ -1,8 +1,8 @@
 ui <- bootstrapPage(
 	tags$head(tags$style(HTML(
-		"html, body {width:100%;height:100%;}",
+		'html, body {width:100%;height:100%; font-family:Consolas, "Ubuntu Mono", monospace;}',
 		"#dropdown-menu-controls {background-color:rgba(255,255,255,0.7) !important;padding:15px;border-radius:10px;}",
-		"div.info.legend.leaflet-control {margin-bottom:37px; font-family:Consolas, monospace;}"
+		'div.info.legend.leaflet-control {margin-bottom:37px; font-family:Consolas, "Ubuntu Mono", monospace;}'
 	))),
 	leafletOutput("map", width = "100%", height = "100%"),
 	absolutePanel(
