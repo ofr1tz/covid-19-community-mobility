@@ -48,7 +48,7 @@ server <- function(input, output, session) {
 				addLegend(
 					position = "bottomright",
 					pal = pal,
-					labels = labels,
+					# labels = labels,
 					values = ~bin,
 					opacity = .7,
 					title = "Change in Mobility (%)"

@@ -21,8 +21,8 @@ labels <- c(
 	"-80 \U2012 -61",
 	"-60 \U2012 -41",
 	"-40 \U2012 -21",
-	"-20 \U2012  -1",
-	"  0 \U2012 +19",
+	"-20 \U2012 \U2007-1",
+	"\U2007\U2007\U0030 \U2012 +19",
 	"+20 \U2012 +39",
 	"+40 \U2012 +59",
 	"+60 \U2012 +79",
@@ -31,7 +31,7 @@ labels <- c(
 )
 
 if(!dir.exists("data")) { dir.create("data") }
-if(!file.exists(file) | as.Date(file.info(file)$ctime) != Sys.Date()) {
+if(!file.exists(file) | as.Date(file.info(file)$mtime) != Sys.Date()) {
 	
 	temp <- try(read_csv(url), silent = T)
 	if(class(temp) != "try-error") {
