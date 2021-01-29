@@ -37,6 +37,13 @@ ui <- bootstrapPage(
 		)
 	), 
 	absolutePanel(
+		top = 20, right = 80,
+		circleButton(
+			inputId = "about", icon = icon("question"),
+			onclick ="window.open('https://www.oliverfritz.de/portfolio/covid-19-community-mobility/', '_blank')"
+		)
+	),
+	absolutePanel(
 		bottom = 10, right = 15, 
 		materialSwitch(inputId = "leg", label = "Legend", width = 120)
 	)
