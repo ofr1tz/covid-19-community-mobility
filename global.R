@@ -13,7 +13,7 @@ require(conflicted)
 conflict_prefer("addLegend", "leaflet")
 conflict_prefer("filter", "dplyr")
 
-url <- "https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv"
+# url <- "https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv"
 file <- "data/global-mobility-report.rds"
 
 labels <- c(

@@ -1,5 +1,8 @@
 require(tidyverse)
 
+url <- "https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv"
+file <- "data/global-mobility-report.rds"
+
 if(!dir.exists("data")) { dir.create("data") }
 
 temp <- try(read_csv(url), silent = T)
