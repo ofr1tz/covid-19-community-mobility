@@ -1,7 +1,8 @@
 require(tidyverse)
 
-url <- "https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv"
-file <- "data/global-mobility-report.rds"
+# source shared variables used by update_data cron job and app
+source("shared_vars.R")
+
 
 if(!dir.exists("data")) { dir.create("data") }
 

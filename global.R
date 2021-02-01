@@ -13,22 +13,9 @@ require(conflicted)
 conflict_prefer("addLegend", "leaflet")
 conflict_prefer("filter", "dplyr")
 
-# url <- "https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv"
-file <- "data/global-mobility-report.rds"
+# source shared variables used by update_data cron job and app
+source("shared_vars.R")
 
-labels <- c(
-	"\U2264 -81",
-	"-80 \U2012 -61",
-	"-60 \U2012 -41",
-	"-40 \U2012 -21",
-	"-20 \U2012 \U2007-1",
-	"\U2007\U2007\U0030 \U2012 +19",
-	"+20 \U2012 +39",
-	"+40 \U2012 +59",
-	"+60 \U2012 +79",
-	"+80 \U2012 +99",
-	"\U2265 +100"
-)
 
 # if(!dir.exists("data")) { dir.create("data") }
 # if(!file.exists(file) | as.Date(file.info(file)$mtime) != Sys.Date()) {
