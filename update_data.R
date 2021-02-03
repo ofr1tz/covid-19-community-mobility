@@ -1,3 +1,5 @@
+print(Sys.Date())
+
 require(tidyverse)
 
 # source shared variables used by update_data cron job and app

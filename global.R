@@ -29,4 +29,3 @@ sf <- ne_countries(scale = 110, returnclass = "sf") %>%
 	select(name, iso_a2)
 
 sf_attribution <- "Made with <a href = 'naturalearthdata.com'>Natural Earth</a>"
-
