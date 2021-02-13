@@ -26,5 +26,5 @@ if(class(temp) != "try-error") {
 				right = F
 			)
 		) %>%
-		saveRDS(file)
+		saveRDS(file, compress = F)
 }
