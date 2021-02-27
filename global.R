@@ -19,7 +19,7 @@ source("shared_vars.R")
 dat <- readRDS(file)
 
 data_attribution = paste(
-	"<a href = 'https://www.google.com/covid19/mobility/'>Google LLC</a>",
+	"<a href = 'https://www.google.com/covid19/mobility/' target='_blank'>Google LLC</a>",
 	"Google COVID-19 Community Mobility Reports, Accessed: ",
 	Sys.Date()
 )
@@ -28,4 +28,4 @@ sf <- ne_countries(scale = 110, returnclass = "sf") %>%
 	mutate(name = admin) %>%
 	select(name, iso_a2)
 
-sf_attribution <- "Made with <a href = 'naturalearthdata.com'>Natural Earth</a>"
+sf_attribution <- "Made with <a href = 'naturalearthdata.com' target='_blank'>Natural Earth</a>"
